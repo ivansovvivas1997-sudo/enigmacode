@@ -1,0 +1,420 @@
+:root {
+    --fondo: #0E1626;
+    --superficie: #16213A;
+    --linea: #26324F;
+    --texto: #E6EAF2;
+    --apagado: #9AA4B8;
+    --ambar: #FFB547;
+    --sobre-ambar: #1B1306;
+    --ancho: min(1080px, 100% - 3rem);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--fondo);
+    color: var(--texto);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+    outline: 3px solid #FFFFFF;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Accesibilidad */
+
+.saltar {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 10;
+    background-color: var(--ambar);
+    color: var(--sobre-ambar);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.saltar:focus {
+    top: 1rem;
+}
+
+.solo-lectores {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Cabecera */
+
+.cabecera {
+    width: var(--ancho);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.25rem;
+}
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--texto);
+    text-decoration: none;
+}
+
+.marca::before {
+    content: "";
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background-color: var(--ambar);
+    box-shadow: 0 0 12px 2px rgba(255, 181, 71, 0.55);
+}
+
+.menu-principal {
+    display: none;
+    gap: 1.75rem;
+    margin-left: auto;
+}
+
+.menu-principal a {
+    color: var(--apagado);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.menu-principal a:hover {
+    color: var(--texto);
+}
+
+@media (min-width: 760px) {
+    .menu-principal {
+        display: flex;
+    }
+}
+
+/* Botones y enlaces */
+
+.boton {
+    display: inline-block;
+    background-color: var(--ambar);
+    color: var(--sobre-ambar);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+}
+
+.boton:hover {
+    background-color: #FFC56B;
+}
+
+.boton-chico {
+    padding: 0.55rem 1rem;
+    font-size: 0.95rem;
+}
+
+.enlace {
+    color: var(--texto);
+    text-decoration-line: underline;
+    text-decoration-color: var(--ambar);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+}
+
+.enlace:hover {
+    color: var(--ambar);
+}
+
+/* Portada */
+
+.portada {
+    width: var(--ancho);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 12vw, 8.5rem) clamp(3.5rem, 8vw, 6rem);
+}
+
+.titular {
+    margin: 0 0 1.75rem 0;
+    max-width: 17ch;
+    font-family: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+    font-weight: 600;
+    font-size: clamp(1.9rem, 8vw, 4.75rem);
+    line-height: 1.1;
+}
+
+.titular-texto {
+    display: inline;
+}
+
+/* El titular se "descifra" al cargar: letras al azar que se van resolviendo.
+   Si el script no carga, un respaldo muestra el texto igualmente. */
+.con-js .titular-texto {
+    opacity: 0;
+    animation: mostrar 0.01s 2.6s forwards;
+}
+
+.con-js .titular-texto.activo {
+    opacity: 1;
+    animation: none;
+}
+
+.titular-texto .listo {
+    animation: encender 0.8s ease-out;
+}
+
+@keyframes mostrar {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes encender {
+    from {
+        color: var(--ambar);
+        text-shadow: 0 0 18px rgba(255, 181, 71, 0.7);
+    }
+    to {
+        color: var(--texto);
+        text-shadow: 0 0 0 rgba(255, 181, 71, 0);
+    }
+}
+
+.entradilla {
+    max-width: 56ch;
+    margin: 0 0 2.25rem 0;
+    color: var(--apagado);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+}
+
+.acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+}
+
+/* Bloques */
+
+.bloque {
+    width: var(--ancho);
+    margin-inline: auto;
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+    border-top: 1px solid var(--linea);
+}
+
+.bloque h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.bloque p {
+    max-width: 62ch;
+}
+
+.bloque > .bloque-cabecera {
+    margin-bottom: 2rem;
+}
+
+.bloque-cabecera p {
+    margin: 0;
+    color: var(--apagado);
+}
+
+.bloque-dos {
+    display: grid;
+    gap: 2rem 4rem;
+}
+
+.bloque-dos > .bloque-cabecera {
+    margin-bottom: 0;
+}
+
+@media (min-width: 840px) {
+    .bloque-dos {
+        grid-template-columns: 5fr 7fr;
+    }
+}
+
+/* Qué incluye */
+
+.lista-incluye {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.75rem 2.5rem;
+    margin: 0;
+}
+
+.lista-incluye dt {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.lista-incluye dd {
+    margin: 0;
+    color: var(--apagado);
+    font-size: 0.98rem;
+}
+
+/* Ejemplo */
+
+.marco {
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--superficie);
+}
+
+.marco iframe {
+    display: block;
+    width: 100%;
+    height: min(75vh, 580px);
+    border: 0;
+    background-color: #0A0E14;
+}
+
+.nota {
+    margin: 1rem 0 0 0;
+    color: var(--apagado);
+    font-size: 0.95rem;
+}
+
+/* Cómo trabajamos */
+
+.pasos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem 2.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: paso;
+}
+
+.pasos li {
+    counter-increment: paso;
+}
+
+.pasos li::before {
+    content: counter(paso);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: var(--ambar);
+}
+
+.pasos h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.15rem;
+}
+
+.pasos p {
+    margin: 0;
+    color: var(--apagado);
+}
+
+/* Precio */
+
+.precio-numero {
+    display: block;
+    font-family: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+    font-weight: 600;
+    font-size: clamp(3.5rem, 11vw, 6.5rem);
+    line-height: 1;
+    color: var(--ambar);
+}
+
+.precio-detalle {
+    display: block;
+    margin-top: 0.6rem;
+    color: var(--apagado);
+}
+
+.precio-texto p {
+    margin: 0 0 1rem 0;
+    color: var(--apagado);
+}
+
+/* Quiénes somos */
+
+.texto-largo p {
+    margin: 0 0 1.1rem 0;
+}
+
+.texto-largo p:last-child {
+    margin-bottom: 0;
+}
+
+/* Cierre */
+
+.cierre h2 {
+    font-size: clamp(2rem, 6vw, 3.25rem);
+}
+
+.cierre p {
+    margin: 0 0 1.75rem 0;
+    color: var(--apagado);
+}
+
+/* Pie */
+
+.pie {
+    width: var(--ancho);
+    margin-inline: auto;
+    padding-block: 2rem 3rem;
+    border-top: 1px solid var(--linea);
+    color: var(--apagado);
+    font-size: 0.9rem;
+}
+
+.pie p {
+    margin: 0;
+}
+
+/* Respetar a quien prefiere menos movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
